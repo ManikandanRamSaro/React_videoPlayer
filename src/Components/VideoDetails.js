@@ -4,10 +4,19 @@ const VideoDetails = ({video}) =>{
     if(!video)
     {
         return <div>..Loading</div>;
-    }
+    } 
+
+    const videoSrc = `https://www.youtube.com/embed/${video.id.videoId}`
     return (
     
-        <div> <h1>{video.snippet.title}</h1>
+        <div> 
+            <div className="ui embed">
+                <iframe title="video player" src={videoSrc}/>
+            </div>
+            <div className="ui segment">
+                <h4 className="header">{video.snippet.title}</h4>
+                <p>{video.snippet.description}</p>
+            </div> 
         </div>
     );    
 }
