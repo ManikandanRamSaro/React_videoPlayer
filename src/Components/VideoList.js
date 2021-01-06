@@ -6,7 +6,11 @@ const VideoList = ({videosfiles}) =>{  // also ve can call the props name direct
         return <div><VideoItem video={video}/></div>;
     });
     return (
-            <div className="ui relaxed divided list"> {renderList}  </div>
+        <div>
+          
+<div className="ui relaxed divided list"> {renderList}  </div>
+        </div>
+           
     );
     
 } 
