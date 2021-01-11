@@ -10,7 +10,7 @@ const App = () =>{
    
     const [videosSelect, setVideosSelect] =useState(null);
 
-    const [videos,searchVideos] = useVideos('Shinchan')
+    const [videos,searchVideos] = useVideos('Shinchan'); // custom hook
  
     useEffect(()=>{
         setVideosSelect(videos[0]);

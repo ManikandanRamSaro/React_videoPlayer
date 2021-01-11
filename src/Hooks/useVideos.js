@@ -2,13 +2,13 @@ import {useEffect,useState} from 'react';
 import youtube from '../Apis/youtube';
 
 const useVideos = (defaultVideo) => {
-    const [videos,setVideos] = useState([]);
+    const [videos,setVideos] = useState([]);  // input
 
-    useEffect(()=>{
+    useEffect(()=>{                          // input handling 
         searchVideos(defaultVideo);
-    },[]);
+    },[defaultVideo]);
 
-    const searchVideos = async (data) =>
+    const searchVideos = async (data) =>     // output processing
     {
       const output= await youtube.get('/search',{
             params:{
@@ -20,7 +20,7 @@ const useVideos = (defaultVideo) => {
         
     }
 
-    return [videos,searchVideos];
+    return [videos,searchVideos];             // return output
 }
 
 export default useVideos;
