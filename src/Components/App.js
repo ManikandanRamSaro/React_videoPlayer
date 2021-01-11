@@ -1,48 +1,39 @@
-import React from 'react';
-import SearchBar from './SearchBar';
-import youtube from '../Apis/youtube'
+import React,{useState,useEffect} from 'react';
+import SearchBar from './SearchBar'; 
 import VideoList from "./VideoList";
 import VideoDetails from './VideoDetails';
-class App extends React.Component{
 
-    state = { videos : [] , VideoSelected : null }
+import useVideos from '../Hooks/useVideos';
 
-    componentDidMount(){
-        this.getFromSearchbox('greating');
-    }
+const App = () =>{
 
-    getFromSearchbox = async (data) =>
-    {
-      const output= await youtube.get('/search',{
-            params:{
-                q:data
-            }
-        })
-        this.setState({videos:output.data.items,
-            VideoSelected:output.data.items[0]
-                    }) 
-    }
+   
+    const [videosSelect, setVideosSelect] =useState(null);
 
-    onVideoSelect = (video) =>{
-        //console.log('from the list',video);
-        this.setState({VideoSelected:video})
-    }
-    render(){
-        return(<div className="ui container">
-            <SearchBar fromSearch={this.getFromSearchbox}/> 
+    const [videos,searchVideos] = useVideos('Shinchan')
+ 
+    useEffect(()=>{
+        setVideosSelect(videos[0]);
+    },[videos]);
+    
+
+   
+    return(<div className="ui container">
+            <SearchBar fromSearch={searchVideos}/> 
             <div className="ui grid">
                 <div className="ui row">
                     <div className="eleven wide column">
-                          <VideoDetails video={this.state.VideoSelected}/>
+                          <VideoDetails video={videosSelect}/>
                     </div>
                     <div className="five wide column">
-                           <VideoList onVideoSelect={this.onVideoSelect} videosfiles={this.state.videos}/>
+                    {/* <VideoList onVideoSelect={(video)=> setVideosSelect(video)} videosfiles={videos}/> */}
+                    {/* both are same */}
+                           <VideoList onVideoSelect={setVideosSelect} videosfiles={videos}/>
                     </div>
                 
                 </div>
             </div>
         </div>);
-    }
 }
-
+ 
 export default App;
